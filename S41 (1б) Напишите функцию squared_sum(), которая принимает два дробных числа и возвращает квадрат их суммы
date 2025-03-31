@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+// Функция для вычисления квадрата суммы двух дробных чисел
+double squared_sum(double a, double b) {
+    double sum = a + b; // Считаем сумму
+    return sum * sum;   // Возвращаем квадрат суммы
+}
+int main() {
+    setlocale(0, "Russian");
+
+    double num1, num2;
+
+    // Запрос у пользователя ввести два дробных числа
+    cout << "Введите первое дробное число: ";
+    cin >> num1;
+    cout << "Введите второе дробное число: ";
+    cin >> num2;
+
+    // Вызываем функцию squared_sum и выводим результат
+    cout << "Квадрат суммы: " << squared_sum(num1, num2) << "\n";
+
+    return 0;
+    }
