@@ -1,0 +1,41 @@
+#include <iostream>
+#include <fstream>
+#include <locale>
+
+int main() {
+    setlocale(0, "Russian");
+
+    int A, B;
+
+    // Запрос у пользователя чисел A и B
+    std::cout << "Введите число A: ";
+    std::cin >> A;
+    std::cout << "Введите число B (должно быть больше A): ";
+    std::cin >> B;
+
+    // Проверяем, что B больше A
+    if (B <= A) {
+        std::cerr << "Ошибка: B должно быть больше A." << std::endl;
+        return 1; // Завершаем программу с кодом ошибки
+    }
+
+    // Открытие файла для записи
+    std::ofstream outputFile("output.txt");
+    if (!outputFile) {
+        std::cerr << "Ошибка: не удалось открыть файл output.txt для записи." << std::endl;
+        return 1;
+    }
+
+    // Цикл от A до B
+    for (int i = A; i <= B; ++i) {
+        int result = i * 3; // Умножаем текущее число на 3
+        outputFile << result << std::endl; // Записываем результат в файл
+    }
+
+    // Закрываем файл
+    outputFile.close();
+
+    std::cout << "Значения от A до B, умноженные на 3, были записаны в файл output.txt." << std::endl;
+
+    return 0;
+}
