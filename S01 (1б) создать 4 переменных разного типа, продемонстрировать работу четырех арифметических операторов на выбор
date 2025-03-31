@@ -1,0 +1,30 @@
+#include <iostream>
+#include <locale>
+
+int main() {
+    setlocale(0, "Russian"); // Устанавливаем локализацию на русский язык
+
+    // Объявление переменных различных типов
+    int a = 10;          // Целочисленная переменная
+    double b = 5.5;     // Переменная с плавающей точкой
+    float c = 3.5f;     // Переменная с плавающей точкой (одинарная точность)
+    long d = 20;        // Долгое целое число
+
+    // Сложение
+    double sum = a + b;     // Здесь a преобразуется в double
+    std::cout << "Сумма a и b: " << sum << std::endl;
+
+    // Вычитание
+    double difference = d - c; // Здесь d преобразуется в double
+    std::cout << "Разность d и c: " << difference << std::endl;
+
+    // Умножение
+    float product = static_cast<float>(a) * c; // Преобразуем a к float
+    std::cout << "Произведение a и c: " << product << std::endl;
+
+    // Деление
+    double quotient = b / static_cast<double>(d); // Преобразуем d к double
+    std::cout << "Частное b и d: " << quotient << std::endl;
+
+    return 0;
+}
