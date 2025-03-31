@@ -1,0 +1,17 @@
+#include <iostream>
+#include <locale>
+
+int main() {
+    setlocale(0, "Russian");
+
+    // Цикл от 0 до 100
+    for (int i = 0; i <= 100; ++i) {
+        // Проверяем, делится ли число на 3
+        if (i % 3 == 0) {
+            std::cout << i << " "; // Выводим число на экран
+        }
+    }
+
+    std::cout << std::endl; // Переход на новую строку после вывода
+    return 0;
+}
