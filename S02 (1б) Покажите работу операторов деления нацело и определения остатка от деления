@@ -1,0 +1,20 @@
+#include <iostream>
+#include <locale>
+
+int main() {
+    setlocale(0, "Russian");
+
+    // Объявление переменных
+    int a = 17; // Делимое
+    int b = 5;  // Делитель
+
+    // Деление нацело
+    int quotient = a / b; // Целая часть от деления
+    std::cout << "Результат деления нацело 17 / 5: " << quotient << std::endl;
+
+    // Остаток от деления
+    int remainder = a % b; // Остаток от деления
+    std::cout << "Остаток от деления 17 % 5: " << remainder << std::endl;
+
+    return 0;
+}
