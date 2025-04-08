@@ -1,0 +1,31 @@
+#include <iostream>
+#include <clocale>
+
+void sort(int arr[10]) {
+    for (int i = 0; i < 10 - 1; i++) {
+        for (int j = i + 1; j < 10; j++) {
+            // Если текущий элемент меньше следующего, меняем их местами
+            if (arr[i] < arr[j]) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    setlocale(0, "Russian");
+
+    int a[10] = {1, 8, 3, 6, 5, 4, 9, 2, 7, 12};
+    sort(a);
+
+    // Вывод отсортированного массива
+    std::cout << "Отсортированный массив: ";
+    for (int i = 0; i < 10; i++) {
+        std::cout << a[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
