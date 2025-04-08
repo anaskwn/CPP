@@ -1,0 +1,113 @@
+#include <iostream>
+#include <clocale>
+using namespace std;
+
+class CreditCard {
+private:
+    int Number;    // Номер карты
+    float Balance; // Баланс карты
+
+public:
+    CreditCard(int number, float balance) {
+        Number = number;
+        Balance = balance;
+    }
+
+    // Метод для пополнения баланса
+    void Put(float V) {
+        if (V > 0) {
+            Balance += V;
+            cout << "Пополнено: " << V << " Р. Новый баланс: " << Balance << " Р." << endl;
+        } else {
+            cout << "Сумма пополнения должна быть положительной!" << endl;
+        }
+    }
+
+    // Метод для снятия денег с карты
+    void Take(float V) {
+        if (V > 0) {
+            if (V <= Balance) {
+                Balance -= V;
+                cout << "Снято: " << V << " Р. Новый баланс: " << Balance << " Р." << endl;
+            } else {
+                cout << "Недостаточно средств для снятия!" << endl;
+            }
+        } else {
+            cout << "Сумма снятия должна быть положительной!" << endl;
+        }
+    }
+
+    // Метод для отображения информации о карте
+    void Display() {
+        cout << "Номер карты: " << Number << ", Баланс: " << Balance << " Р." << endl;
+    }
+
+    // Геттер для номера карты (для сравнения)
+    int GetNumber() const {
+        return Number;
+    }
+
+    // Метод для получения баланса (для управления переводом)
+    float GetBalance() const {
+        return Balance;
+    }
+
+    // Метод для снижения баланса (для перевода)
+    void DecreaseBalance(float amount) {
+        Balance -= amount;
+    }
+
+    // Метод для увеличения баланса (для перевода)
+    void IncreaseBalance(float amount) {
+        Balance += amount;
+    }
+
+};
+
+// Функция для перевода суммы с одной карты на другую
+void Transfer(CreditCard* C1, CreditCard* C2, float V) {
+    // Проверяем, что карты не совпадают
+    if (C1->GetNumber() == C2->GetNumber()) {
+        cout << "Ошибка: Это одна и та же карта. Операция не проводится." << endl;
+        return;
+    }
+
+    // Проверяем, что баланс карты C1 достаточно для перевода
+    if (C1->GetBalance() < V) {
+        cout << "Ошибка: Недостаточно средств на карте " << C1->GetNumber() << " для перевода." << endl;
+        return;
+    }
+
+    // Выполняем перевод
+    C1->DecreaseBalance(V);
+    C2->IncreaseBalance(V);
+
+    cout << "Переведено: " << V << " Р. с карты " << C1->GetNumber() << " на карту " << C2->GetNumber() << "." << endl;
+}
+
+int main() {
+    setlocale(0, "Russian");
+
+    // Создаём две карты
+    CreditCard* myCard1 = new CreditCard(1234, 100.0f); // Карта 1 с балансом 100 Р.
+    CreditCard* myCard2 = new CreditCard(5678, 50.0f);   // Карта 2 с балансом 50 Р.
+
+    // Отображаем информацию о картах
+    myCard1->Display();
+    myCard2->Display();
+
+    // Выполняем перевод
+    Transfer(myCard1, myCard2, 30.0f); // Перевод 30 Р. с карты 1 на карту 2
+    Transfer(myCard1, myCard2, 100.0f); // Попытка перевода 100 Р. (должна выдать ошибку)
+    Transfer(myCard1, myCard1, 20.0f);  // Попытка перевода на ту же карту (должна выдать ошибку)
+
+    // Отображаем итоговую информацию о картах
+    myCard1->Display();
+    myCard2->Display();
+
+    // Освобождаем память
+    delete myCard1;
+    delete myCard2;
+
+    return 0;
+}
