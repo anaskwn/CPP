@@ -1,0 +1,67 @@
+#include <iostream>
+#include <clocale>
+using namespace std;
+
+class CreditCard {
+private:
+    int Number;    // Номер карты
+    float Balance; // Баланс карты
+
+public:
+    CreditCard(int number, float balance) {
+        Number = number;
+        Balance = balance;
+    }
+
+    // Метод для пополнения баланса
+    void Put(float V) {
+        if (V > 0) {
+            Balance += V;
+            cout << "Пополнено: " << V << " Р. Новый баланс: " << Balance << " Р." << endl;
+        } else {
+            cout << "Сумма пополнения должна быть положительной!" << endl;
+        }
+    }
+
+    // Метод для снятия денег с карты
+    void Take(float V) {
+        if (V > 0) {
+            if (V <= Balance) {
+                Balance -= V;
+                cout << "Снято: " << V << " Р. Новый баланс: " << Balance << " Р." << endl;
+            } else {
+                cout << "Недостаточно средств для снятия!" << endl;
+            }
+        } else {
+            cout << "Сумма снятия должна быть положительной!" << endl;
+        }
+    }
+
+    // Метод для отображения информации о карте
+    void Display() {
+        cout << "Номер карты: " << Number << ", Баланс: " << Balance << " Р." << endl;
+    }
+};
+
+int main() {
+    setlocale(0, "Russian"); // Устанавливаем локаль на русский
+
+    // Создаём указатель на объект CreditCard
+    CreditCard* myCard = new CreditCard(1234, 50.0f); // Создаем карту с номером 1234 и балансом 50 Р.
+
+    // Показываем информацию о карте
+    myCard->Display();
+
+    // Пополняем и снимаем деньги
+    myCard->Put(20.0f);   // Пополнение на 20 Р.
+    myCard->Take(30.0f);  // Снятие 30 Р.
+    myCard->Take(100.0f); // Попытка снятия 100 Р, недостаточно средств
+
+    // Показываем информацию о карте
+    myCard->Display();
+
+    // Освобождаем память
+    delete myCard;
+
+    return 0;
+}
