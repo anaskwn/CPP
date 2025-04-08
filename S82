@@ -1,0 +1,74 @@
+#include <iostream>
+#include <clocale>
+using namespace std;
+
+class CreditCard {
+private:
+    int Number;    // Номер карты
+    float Balance; // Баланс карты
+
+public:
+    CreditCard(int number, float balance) {
+        Number = number;
+        Balance = balance;
+    }
+
+    // Метод для пополнения баланса
+    void Put(float V) {
+        if (V > 0) {
+            Balance += V;
+            cout << "Пополнено: " << V << " Р. Новый баланс: " << Balance << " Р." << endl;
+        } else {
+            cout << "Сумма пополнения должна быть положительной!" << endl;
+        }
+    }
+
+    // Метод для снятия денег с карты
+    void Take(float V) {
+        if (V > 0) {
+            if (V <= Balance) {
+                Balance -= V;
+                cout << "Снято: " << V << " Р. Новый баланс: " << Balance << " Р." << endl;
+            } else {
+                cout << "Недостаточно средств для снятия!" << endl;
+            }
+        } else {
+            cout << "Сумма снятия должна быть положительной!" << endl;
+        }
+    }
+
+    // Перегрузка оператора +
+    CreditCard operator+(CreditCard& other) {
+        // Создаем новую кредитную карту с тем же номером, что у текущей (S1)
+        CreditCard newCard(this->Number, this->Balance + other.Balance);
+        // Обнуляем баланс другой карты (S2)
+        other.Balance = 0;
+        cout << "Переведено с карты " << other.Number << " на карту " << this->Number << ". Новый баланс: " << newCard.Balance << " Р." << endl;
+        return newCard; // Возвращаем новую карту с обновленным балансом
+    }
+
+    // Метод для отображения информации о карте
+    void Display() {
+        cout << "Номер карты: " << Number << ", Баланс: " << Balance << " Р." << endl;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+
+    CreditCard card1(1234, 100.0f); // Создаем карту 1 с балансом 100 Р.
+    CreditCard card2(5678, 50.0f);   // Создаем карту 2 с балансом 50 Р.
+
+    // Отображаем информацию о картах до операции
+    card1.Display();
+    card2.Display();
+
+    // Переносим баланс с card2 на card1
+    card1 = card1 + card2;
+
+    // Отображаем информацию о картах после операции
+    card1.Display();
+    card2.Display(); // card2 должен иметь баланс 0
+
+    return 0;
+}
